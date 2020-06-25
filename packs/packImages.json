@@ -1,0 +1,164 @@
+{ 
+    "test1": {
+        "files": [
+            {
+                "type": "image",
+                "key": "background",
+                "url": "assets/images/background/background.png"
+            },
+            {
+                "type": "image",
+                "key": "zone1",
+                "url": "assets/images/zones/zone1.png"
+            },
+            {
+                "type": "image",
+                "key": "zone2",
+                "url": "assets/images/zones/zone2.png"
+            },
+            {
+                "type": "image",
+                "key": "cat",
+                "url": "assets/images/text/animals/cat.png"
+            },
+            {
+                "type": "image",
+                "key": "dog",
+                "url": "assets/images/text/animals/dog.png"
+            },
+            {
+                "type": "image",
+                "key": "dragon",
+                "url": "assets/images/text/animals/dragon.png"
+            },
+            {
+                "type": "image",
+                "key": "tiger",
+                "url": "assets/images/text/animals/tiger.png"
+            },
+            {
+                "type": "image",
+                "key": "yellow",
+                "url": "assets/images/text/colors/yellow.png"
+            },
+            {
+                "type": "image",
+                "key": "purple",
+                "url": "assets/images/text/colors/purple.png"
+            },
+            {
+                "type": "image",
+                "key": "green",
+                "url": "assets/images/text/colors/green.png"
+            },
+            {
+                "type": "image",
+                "key": "black",
+                "url": "assets/images/text/colors/black.png"
+            },
+            {
+             "type": "image",
+             "key": "blackcat",
+             "url": "assets/images/objects/blackcat.png"   
+            },
+            {
+                "type": "image",
+                "key": "blackdog",
+                "url": "assets/images/objects/blackdog.png"
+            },
+            {
+                "type": "image",
+                "key": "blackdragon",
+                "url": "assets/images/objects/blackdragon.png"
+            },
+            {
+                "type": "image",
+                "key": "blacktiger",
+                "url": "assets/images/objects/blacktiger.png"
+            },
+            {
+                "type": "image",
+                "key": "greencat",
+                "url": "assets/images/objects/greencat.png"
+            },
+            {
+                "type": "image",
+                "key": "greendog",
+                "url": "assets/images/objects/greendog.png"
+            },
+            {
+                "type": "image",
+                "key": "greendragon",
+                "url": "assets/images/objects/greendragon.png"
+            },
+            {
+                "type": "image",
+                "key": "greentiger",
+                "url": "assets/images/objects/greentiger.png"
+            },
+            {
+                "type": "image",
+                "key": "purplecat",
+                "url": "assets/images/objects/purplecat.png"
+            },
+            {
+                "type": "image",
+                "key": "purpledog",
+                "url": "assets/images/objects/purpledragon.png"
+            },
+            {
+                "type": "image",
+                "key": "purpledragon",
+                "url": "assets/images/objects/purpledragon.png"
+            },
+            {
+                "type": "image",
+                "key": "purpletiger",
+                "url": "assets/images/objects/purpletiger.png"
+            },
+            {
+                "type": "image",
+                "key": "yellowcat",
+                "url": "assets/images/objects/yellowcat.png"
+            },
+            {
+                "type": "image",
+                "key": "yellowdog",
+                "url": "assets/images/objects/yellowdog.png"
+            },
+            {
+                "type": "image",
+                "key": "yellowdragon",
+                "url": "assets/images/objects/yellowdragon.png"
+            },
+            {
+                "type": "image",
+                "key": "yellowtiger",
+                "url": "assets/images/objects/yellowtiger.png"
+            },
+            {
+                "type": "image",
+                "key": "startSheet",
+                "url": "assets/images/background/startSheet.png"
+            },
+            {
+                "type": "image",
+                "key": "startButton1",
+                "url": "assets/images/background/startButton1.png"
+            },
+            {
+                "type": "image",
+                "key": "startButton2",
+                "url": "assets/images/background/startButton2.png"
+            }
+        ]
+    },
+    
+    "meta": {
+        "generated": "1401380327373",
+        "app": "Phaser 3 Asset Packer",
+        "url": "https://phaser.io",
+        "version": "1.0",
+        "copyright": "Photon Storm Ltd. 2018"
+    }
+}
