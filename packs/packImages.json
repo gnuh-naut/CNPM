@@ -8,6 +8,11 @@
             },
             {
                 "type": "image",
+                "key": "sunshine",
+                "url":"assets/images/background/sunshine.jpg"
+            },
+            {
+                "type": "image",
                 "key": "zone1",
                 "url": "assets/images/zones/zone1.png"
             },
@@ -104,7 +109,7 @@
             {
                 "type": "image",
                 "key": "purpledog",
-                "url": "assets/images/objects/purpledragon.png"
+                "url": "assets/images/objects/purpledog.png"
             },
             {
                 "type": "image",
