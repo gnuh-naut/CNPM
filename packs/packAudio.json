@@ -1,0 +1,154 @@
+{ 
+    "test1": {
+        "files": [
+            {
+                "type": "audio",
+                "key": "blackAudio",
+                "url": "assets/audio/text/black.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "greenAudio",
+                "url": "assets/audio/text/green.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "purpleAudio",
+                "url": "assets/audio/text/purple.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "yellowAudio",
+                "url": "assets/audio/text/yellow.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "catAudio",
+                "url": "assets/audio/text/cat.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "dogAudio",
+                "url": "assets/audio/text/dog.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "dragonAudio",
+                "url": "assets/audio/text/dragon.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "tigerAudio",
+                "url": "assets/audio/text/tiger.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "blackcatAudio",
+                "url": "assets/audio/text/blackcat.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "greencatAudio",
+                "url": "assets/audio/text/greencat.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "purplecatAudio",
+                "url": "assets/audio/text/purplecat.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "yellowcatAudio",
+                "url": "assets/audio/text/yellowcat.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "blackdogAudio",
+                "url": "assets/audio/text/blackdog.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "greendogAudio",
+                "url": "assets/audio/text/greendog.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "purpledogAudio",
+                "url": "assets/audio/text/purpledog.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "yellowdogAudio",
+                "url": "assets/audio/text/yellowdog.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "blackdragonAudio",
+                "url": "assets/audio/text/blackdragon.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "greendragonAudio",
+                "url": "assets/audio/text/greendragon.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "purpledragonAudio",
+                "url": "assets/audio/text/purpledragon.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "yellowdragonAudio",
+                "url": "assets/audio/text/yellowdragon.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "blacktigerAudio",
+                "url": "assets/audio/text/blacktiger.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "greentigerAudio",
+                "url": "assets/audio/text/greentiger.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "purpletigerAudio",
+                "url": "assets/audio/text/purpletiger.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "yellowtigerAudio",
+                "url": "assets/audio/text/yellowtiger.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "colorAudio",
+                "url": "assets/audio/text/color.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "animalAudio",
+                "url": "assets/audio/text/animal.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "backgroundAudio",
+                "url": "assets/audio/background/background.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "tingAudio",
+                "url": "assets/audio/ting.mp3"
+            }
+        ]
+    },
+    
+    "meta": {
+        "generated": "1401380327373",
+        "app": "Phaser 3 Asset Packer",
+        "url": "https://phaser.io",
+        "version": "1.0",
+        "copyright": "Photon Storm Ltd. 2018"
+    }
+}

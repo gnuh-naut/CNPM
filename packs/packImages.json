@@ -8,6 +8,16 @@
             },
             {
                 "type": "image",
+                "key": "congratulation",
+                "url":"assets/images/background/congratulation.png"
+            },
+            {
+                "type": "image",
+                "key": "playAgain",
+                "url":"assets/images/background/playAgain.png"
+            },
+            {
+                "type": "image",
                 "key": "sunshine",
                 "url":"assets/images/background/sunshine.jpg"
             },
@@ -155,6 +165,16 @@
                 "type": "image",
                 "key": "startButton2",
                 "url": "assets/images/background/startButton2.png"
+            },
+            {
+                "type": "image",
+                "key": "dotmark",
+                "url": "assets/images/objects/dotmark.png" 
+            },
+            {
+                "type": "image",
+                "key": "next",
+                "url":"assets/images/objects/next.png"
             }
         ]
     },

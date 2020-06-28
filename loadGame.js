@@ -2,14 +2,32 @@ let dataArrButtonColor = [];
 let dataArrButtonAnimal = [];
 let arrButton = [];
 let check = 0;
+let checkNext = 0;
+let playAgain = 0;
+let numberState = 0;
+let again;
 let question;
+let dotmark;
+let next;
 let zone1;
 let zone2;
 let object;
 let timer;
 let nameColor;
 let nameAnimal;
-let numberState = 0
+let nameAudio = null;
+let audio;
+let backgroundAudio = null;
+let tingAudio;
+let audioConfig = {
+    mute: false,
+    volume: 2,
+    rate: 1,
+    detune: 0,
+    seek: 0,
+    loop: false,
+    delay: 0
+};
 const constButtonColorX = 250;
 const constButtonColorY = 500;
 const constButtonAnimalX = 730;
@@ -26,33 +44,18 @@ class loadGame extends  Phaser.Scene {
     preload() {
         // them file .json
         this.load.pack('pack1', "packs/packImages.json");
+        this.load.pack('pack2', "packs/packAudio.json");
     }
 
     create() {
-
         this.background = this.add.image(0, 0, "background").setOrigin(0, 0);
-
         // bat dau man choi 
-        
-        if(numberState === 0){
             this.startState();
-        }
-        else{
-            this.mainState();
-        }
-
-        
-        // this.add.image(650, 100, 'blackcat').setOrigin(0, 0);
-        // this.yellow = this.add.image(250, 500, 'yellow').setOrigin(0, 0);
-        // this.purple = this.add.image(410, 500, 'purple').setOrigin(0, 0);
-        // this.blue = this.add.image(570, 500, 'green').setOrigin(0, 0);
-        // this.dragon = this.add.image(730, 500, 'dragon').setOrigin(0, 0);
-        // this.cat = this.add.image(890, 500, 'cat').setOrigin(0, 0);
-        // this.tiger = this.add.image(1050, 500, 'tiger').setOrigin(0, 0);
     }
 
     // xuat hien khi moi game
     startState(){
+
         this.startSheet = this.add.image(270, 30, 'startSheet').setOrigin(0, 0);
 
         this.startButton1 = this.add.image(600, 190, 'startButton1').setOrigin(0, 0);
@@ -78,6 +81,7 @@ class loadGame extends  Phaser.Scene {
 
     // khoi tao man chinh
     mainState() {
+        this.createAudio();
         this.createQuestion();
         this.createArrButton();
         this.ramdonButton();
@@ -85,12 +89,21 @@ class loadGame extends  Phaser.Scene {
         this.buttonAnimal();
 
         this.input.on('gameobjectover', function(pointer, gameObject) {
-            gameObject.setTint(0xFF0000);
+            if(gameObject.name != null){
+                gameObject.setTint(0xFF0000);
+            }
         });
 
         this.input.on('gameobjectout', function(pointer, gameObject) {
             gameObject.clearTint();
         });
+
+        this.input.on('gameobjectdown', function(pointer, gameObject){
+            if(gameObject.name != null){
+                nameAudio = gameObject.name + 'Audio';
+                console.log(nameAudio);
+            }
+        })
         
         this.dragAndDrop();
 
@@ -218,6 +231,8 @@ class loadGame extends  Phaser.Scene {
 
         }).setOrigin(0, 0);
 
+        dotmark = this.add.image(600, 70, 'dotmark').setOrigin(0, 0);
+
         zone1 = this.add.image(600, 400, 'zone1').setOrigin(0, 0).setInteractive();
         zone1.setName('color');
         zone2 = this.add.image(755, 400, 'zone2').setOrigin(0, 0).setInteractive();
@@ -264,33 +279,19 @@ class loadGame extends  Phaser.Scene {
                 nameColor = name;
                 console.log(nameColor);
 
-                // //an nhung button color con lai
-                // for(var i = 0; i < dataArrButtonColor.length; i++){
-                //     if(dataArrButtonColor[i].name != name){
-                //         dataArrButtonColor[i].visible = false;
-                //     }
-                // }
             } else {
                 if(dropZone.name === 'animal'){
                     nameAnimal = name;
                     console.log(nameAnimal);
 
-                    // // an nhung button animal con lai
-                    // for(var i = 0; i < dataArrButtonColor.length; i++){
-                    //     if(dataArrButtonAnimal[i].name != name){
-                    //         dataArrButtonAnimal[i].visible = false;
-                    //     }
-                    // }
                 }
             }
             if(nameAnimal != null && nameColor != null){
                 check = 1;
                 console.log(check);
             }
-
+            tingAudio.play(audioConfig);
             dropZone.visible = false;
-
-            
             gameObject.input.enabled = false;
 
         });
@@ -312,19 +313,56 @@ class loadGame extends  Phaser.Scene {
         });
     }
 
+    createAudio(){
+        let config = {
+            mute: false,
+            volume: 0.5,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: true,
+            delay: 0
+        };
+        tingAudio = this.sound.add('tingAudio');
+        backgroundAudio = this.sound.add('backgroundAudio');
+        backgroundAudio.play(config);
+    }
+
     createImage(nameColor, nameAnimal) {
+        dotmark.destroy();
         var name = nameColor + nameAnimal;
         console.log(name);
         object = this.add.image(600, 70, name).setOrigin(0, 0);
+        next = this.add.image(1000, 70, 'next').setOrigin(0.5, 0.5);
+        
+        next.name = null;
+    
+        next.setInteractive().on('pointerup', function(){
+            checkNext = 1;
+            numberState++;
+        });
+    
+        next.on('pointerover', function(){
+            next.setScale(1.25);
+        });
+    
+        next.on('pointerout', function(){
+            next.setScale(1);
+        });    
     }
 
-    endState() {
+    nextState() {
         this.destroyObject();
         this.mainState();
     }
 
     destroyObject() {
-        object.destroy()
+        zone1.destroy();
+        zone2.destroy();
+        question.destroy();
+        dotmark.destroy();
+        object.destroy();
+        next.destroy();
         nameColor = null;
         nameAnimal = null;
        
@@ -335,22 +373,88 @@ class loadGame extends  Phaser.Scene {
         for(var i = 0; i < dataArrButtonAnimal.length; i++){
             dataArrButtonAnimal[i].destroy();
         }
+
         dataArrButtonColor = [];
         dataArrButtonAnimal = [];
         arrButton = [];
         
     }
 
+    endState() {
+        this.destroyObject();
+        again = this.add.image(700, 500, 'playAgain').setOrigin(0.5, 0.5);
+        again.name = null;
+        again.setInteractive().on('pointerdown', function() {
+            playAgain = 1;
+        });
+
+        again.on('pointerover', function() {
+            again.setScale(1.25);
+        });
+
+        again.on('pointerout', function() {
+            again.setScale(1);
+        });
+
+        this.congra = this.add.image(350, 50, 'congratulation').setOrigin(0, 0);
+    }
+
+    newGame() {
+        dataArrButtonColor = [];
+        dataArrButtonAnimal = [];
+        arrButton = [];
+        check = 0;
+        checkNext = 0;
+        playAgain = 0;
+        numberState = 0;
+        nameAudio = null;
+        audioConfig = {
+            mute: false,
+            volume: 2,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+        };
+        backgroundAudio.destroy();
+        this.scene.start('loadGame');
+    }
+
     update() {
-        if(check == 1){
-            
+
+        if(check){
             check = 0;
-            numberState++;
-            this.createImage(nameColor, nameAnimal);
-            timer = this.time.delayedCall(2000, function() {
-               this.endState();
+            timer = this.time.delayedCall(700, function(){
+                this.createImage(nameColor, nameAnimal);
             }, [], this);
-            
+        }
+
+        if(nameAudio != null){
+            audio = this.sound.add(nameAudio);
+            audio.play(audioConfig);
+            nameAudio = null;
+        }
+
+        if(checkNext){
+            checkNext = 0;
+            audio = this.sound.add(nameColor + nameAnimal + 'Audio');
+            audio.play(audioConfig);
+            timer = this.time.delayedCall(2000, function(){
+                if(numberState < 7){
+                    this.nextState();
+                } else {
+                    this.endState();
+                }
+                
+            }, [], this);
+        }
+
+        if(playAgain){
+            playAgain = 0;
+            timer = this.time.delayedCall(1000, function(){
+                this.newGame();
+            }, [], this);
         }
 
     }
