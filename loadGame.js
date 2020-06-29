@@ -17,6 +17,7 @@ let nameColor;
 let nameAnimal;
 let nameAudio = null;
 let audio;
+let sound;
 let backgroundAudio = null;
 let tingAudio;
 let audioConfig = {
@@ -28,6 +29,8 @@ let audioConfig = {
     loop: false,
     delay: 0
 };
+let mute;
+let unmute;
 const constButtonColorX = 250;
 const constButtonColorY = 500;
 const constButtonAnimalX = 730;
@@ -42,6 +45,26 @@ class loadGame extends  Phaser.Scene {
     }
 
     preload() {
+        var progress = this.add.graphics();
+        var text = this.add.text(500, 200, 'Loading game...', {
+            font: '50px Arial',
+            fill: 'white'
+        });
+
+        this.load.on('progress', function (value) {
+
+            progress.clear();
+            progress.fillStyle(0xffffff, 1);
+            progress.fillRect(0, 270, 1400 * value, 60);
+            text.setText('Loading game...' + Math.floor(value * 100) + '%');
+        });
+        
+        this.load.on('complete', function () {
+
+            progress.destroy();
+
+        });
+
         // them file .json
         this.load.pack('pack1', "packs/packImages.json");
         this.load.pack('pack2', "packs/packAudio.json");
@@ -74,6 +97,7 @@ class loadGame extends  Phaser.Scene {
                 this.startSheet.destroy();
                 this.startButton2.destroy();
                 this.mainState();
+                this.createAudio();
             })
         })
 
@@ -81,7 +105,6 @@ class loadGame extends  Phaser.Scene {
 
     // khoi tao man chinh
     mainState() {
-        this.createAudio();
         this.createQuestion();
         this.createArrButton();
         this.ramdonButton();
@@ -239,7 +262,7 @@ class loadGame extends  Phaser.Scene {
         zone2.setName('animal');
 
     }
-
+    //keo tha
     dragAndDrop() {
 
         // bat dau keo
@@ -312,25 +335,64 @@ class loadGame extends  Phaser.Scene {
             }
         });
     }
-
+    // khoi tao audio nen
     createAudio(){
         let config = {
             mute: false,
-            volume: 0.5,
+            volume: 1,
             rate: 1,
             detune: 0,
             seek: 0,
             loop: true,
             delay: 0
         };
+        
         tingAudio = this.sound.add('tingAudio');
         backgroundAudio = this.sound.add('backgroundAudio');
         backgroundAudio.play(config);
+        // bat am
+        mute = this.add.image(110, 80, 'mute').setOrigin(0.5, 0.5);
+        mute.name = null;
+        mute.visible = false;   
+        mute.setInteractive().on('pointerdown', function(){
+            if(backgroundAudio.mute){
+                backgroundAudio.mute = false;
+            }
+            mute.visible = false;
+            unmute.visible = true;
+        });
+        mute.on('pointerover', function() {
+            mute.setScale(1.2);
+        });
+        mute.on('pointerout', function() {
+            mute.setScale(1);
+        })
+        // tat am
+        unmute = this.add.image(110, 80, 'unmute').setOrigin(0.5, 0.5);
+        unmute.name = null;   
+        unmute.visible = true;
+        unmute.setInteractive().on('pointerdown', function(){
+            if(!backgroundAudio.mute){
+                backgroundAudio.mute = true;
+            }
+            unmute.visible = false;
+            mute.visible = true;
+        });
+        unmute.on('pointerover', function() {
+            unmute.setScale(1.2);
+        });
+        unmute.on('pointerout', function() {
+            unmute.setScale(1);
+        })
     }
-
+    // hien thi ket qua
     createImage(nameColor, nameAnimal) {
         dotmark.destroy();
         var name = nameColor + nameAnimal;
+
+        sound = this.sound.add(nameAnimal + 'Sound');
+        sound.play(audioConfig);
+
         console.log(name);
         object = this.add.image(600, 70, name).setOrigin(0, 0);
         next = this.add.image(1000, 70, 'next').setOrigin(0.5, 0.5);
@@ -350,12 +412,12 @@ class loadGame extends  Phaser.Scene {
             next.setScale(1);
         });    
     }
-
+    // chuyen man choi
     nextState() {
         this.destroyObject();
         this.mainState();
     }
-
+    // huy cac doi tuong
     destroyObject() {
         zone1.destroy();
         zone2.destroy();
@@ -379,9 +441,14 @@ class loadGame extends  Phaser.Scene {
         arrButton = [];
         
     }
-
+    // ket thuc game
     endState() {
         this.destroyObject();
+        backgroundAudio.destroy();
+        mute.destroy();
+        unmute.destroy();
+        sound = this.sound.add('clapSound');
+        sound.play(audioConfig);
         again = this.add.image(700, 500, 'playAgain').setOrigin(0.5, 0.5);
         again.name = null;
         again.setInteractive().on('pointerdown', function() {
@@ -398,7 +465,7 @@ class loadGame extends  Phaser.Scene {
 
         this.congra = this.add.image(350, 50, 'congratulation').setOrigin(0, 0);
     }
-
+    // bat dau mot game moi
     newGame() {
         dataArrButtonColor = [];
         dataArrButtonAnimal = [];
@@ -417,11 +484,11 @@ class loadGame extends  Phaser.Scene {
             loop: false,
             delay: 0
         };
-        backgroundAudio.destroy();
         this.scene.start('loadGame');
     }
 
     update() {
+        
 
         if(check){
             check = 0;
@@ -452,7 +519,7 @@ class loadGame extends  Phaser.Scene {
 
         if(playAgain){
             playAgain = 0;
-            timer = this.time.delayedCall(1000, function(){
+            timer = this.time.delayedCall(500, function(){
                 this.newGame();
             }, [], this);
         }

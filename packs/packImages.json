@@ -175,6 +175,16 @@
                 "type": "image",
                 "key": "next",
                 "url":"assets/images/objects/next.png"
+            },
+            {
+                "type": "image",
+                "key": "mute",
+                "url":"assets/images/audio/mute.png"
+            },
+            {
+                "type": "image",
+                "key": "unmute",
+                "url":"assets/images/audio/unmute.png"
             }
         ]
     },

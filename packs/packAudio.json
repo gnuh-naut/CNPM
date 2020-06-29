@@ -140,6 +140,31 @@
                 "type": "audio",
                 "key": "tingAudio",
                 "url": "assets/audio/ting.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "catSound",
+                "url": "assets/audio/sound/cat.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "dogSound",
+                "url": "assets/audio/sound/dog.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "dragonSound",
+                "url": "assets/audio/sound/dragon.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "tigerSound",
+                "url": "assets/audio/sound/tiger.mp3"
+            },
+            {
+                "type": "audio",
+                "key": "clapSound",
+                "url": "assets/audio/sound/clap.mp3"
             }
         ]
     },
