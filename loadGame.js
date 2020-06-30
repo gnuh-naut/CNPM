@@ -254,6 +254,9 @@ class loadGame extends  Phaser.Scene {
 
         }).setOrigin(0, 0);
 
+        this.tutorial = this.sound.add('tutorial');
+        this.tutorial.play(audioConfig);
+
         dotmark = this.add.image(600, 70, 'dotmark').setOrigin(0, 0);
 
         zone1 = this.add.image(600, 400, 'zone1').setOrigin(0, 0).setInteractive();
@@ -339,7 +342,7 @@ class loadGame extends  Phaser.Scene {
     createAudio(){
         let config = {
             mute: false,
-            volume: 1,
+            volume: 0.7,
             rate: 1,
             detune: 0,
             seek: 0,
@@ -348,8 +351,10 @@ class loadGame extends  Phaser.Scene {
         };
         
         tingAudio = this.sound.add('tingAudio');
+
         backgroundAudio = this.sound.add('backgroundAudio');
         backgroundAudio.play(config);
+
         // bat am
         mute = this.add.image(110, 80, 'mute').setOrigin(0.5, 0.5);
         mute.name = null;
