@@ -1,10 +1,14 @@
 
 	const config = {
 		type: Phaser.AUTO,
-		width: 1400,
-		height: 655,
-		parent: 'phaser-game',
-		background: 0x000000,
+		scale: {
+			mode: Phaser.Scale.FIT,
+			width: window.innerWidth,
+			height: window.innerHeight,
+			parent: 'game',
+			autoCenter: Phaser.Scale.CENTER_BOTH
+		},
+		backgroundColor: 'black', 
 		scene: [loadGame]
 	};
 	

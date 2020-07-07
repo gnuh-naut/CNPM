@@ -4,7 +4,7 @@ let arrButton = [];
 let check = 0;
 let checkNext = 0;
 let playAgain = 0;
-let numberState = 0;
+let process = 1;
 let again;
 let question;
 let dotmark;
@@ -31,16 +31,16 @@ let audioConfig = {
 };
 let mute;
 let unmute;
+let textProcess;
+const numberState = 7;
 const constButtonColorX = 250;
 const constButtonColorY = 500;
 const constButtonAnimalX = 730;
 const constButtonAnimalY = 500;
 
-
 class loadGame extends  Phaser.Scene {
 
     constructor(){
-
         super('loadGame');
     }
 
@@ -52,7 +52,6 @@ class loadGame extends  Phaser.Scene {
         });
 
         this.load.on('progress', function (value) {
-
             progress.clear();
             progress.fillStyle(0xffffff, 1);
             progress.fillRect(0, 270, 1400 * value, 60);
@@ -60,9 +59,7 @@ class loadGame extends  Phaser.Scene {
         });
         
         this.load.on('complete', function () {
-
             progress.destroy();
-
         });
 
         // them file .json
@@ -73,12 +70,11 @@ class loadGame extends  Phaser.Scene {
     create() {
         this.background = this.add.image(0, 0, "background").setOrigin(0, 0);
         // bat dau man choi 
-            this.startState();
+        this.startState();
     }
 
     // xuat hien khi moi game
     startState(){
-
         this.startSheet = this.add.image(270, 30, 'startSheet').setOrigin(0, 0);
 
         this.startButton1 = this.add.image(600, 190, 'startButton1').setOrigin(0, 0);
@@ -97,10 +93,18 @@ class loadGame extends  Phaser.Scene {
                 this.startSheet.destroy();
                 this.startButton2.destroy();
                 this.mainState();
+                this.proceed();
                 this.createAudio();
             })
         })
 
+    }
+
+    proceed() {
+        textProcess = this.add.text(580, 620, 'Process: ' + process + '/' + numberState, {
+            font: '40px Arial',
+            fill: 'black'
+        });
     }
 
     // khoi tao man chinh
@@ -129,57 +133,86 @@ class loadGame extends  Phaser.Scene {
         })
         
         this.dragAndDrop();
-
     }
 
+    // chuyen man choi
+    nextState() {
+        this.destroyObject();
+        this.mainState();
+        textProcess.setText('Process: ' + process + '/' + numberState);
+    }
+
+    //ket thuc game
+    endState() {
+        this.destroyObject();
+        textProcess.destroy();
+        backgroundAudio.destroy();
+        mute.destroy();
+        unmute.destroy();
+        sound = this.sound.add('clapSound');
+        sound.play(audioConfig);
+        again = this.add.image(700, 500, 'playAgain').setOrigin(0.5, 0.5);
+        again.name = null;
+        again.setInteractive().on('pointerdown', function() {
+            playAgain = 1;
+            sound.destroy();
+        });
+
+        again.on('pointerover', function() {
+            again.setScale(1.25);
+        });
+
+        again.on('pointerout', function() {
+            again.setScale(1);
+        });
+
+        this.congra = this.add.image(350, 50, 'congratulation').setOrigin(0, 0);
+    }
+     // bat dau mot game moi
+     newGame() {
+        dataArrButtonColor = [];
+        dataArrButtonAnimal = [];
+        arrButton = [];
+        check = 0;
+        checkNext = 0;
+        playAgain = 0;
+        process = 1;
+        nameAudio = null;
+        audioConfig = {
+            mute: false,
+            volume: 2,
+            rate: 1,
+            detune: 0,
+            seek: 0,
+            loop: false,
+            delay: 0
+        };
+        this.scene.start('loadGame');
+    }
     // them danh sach cac nut vao day
     createArrButton() {
-        arrButton[0] = this.add.image(0, 0, 'black').setOrigin(0, 0);
-        arrButton[0].visible = false;
-        arrButton[0].setName('black');
-        console.log(arrButton[0].name);
-
-        arrButton[1] = this.add.image(0, 0, 'green').setOrigin(0, 0);
-        arrButton[1].visible = false;
-        arrButton[1].setName('green');
-        console.log(arrButton[1].name);
-
-        arrButton[2] = this.add.image(0, 0, 'purple').setOrigin(0, 0);
-        arrButton[2].visible = false;
-        arrButton[2].setName('purple');
-        console.log(arrButton[2].name);
-
-        arrButton[3] = this.add.image(0, 0, 'yellow').setOrigin(0, 0);
-        arrButton[3].visible = false;
-        arrButton[3].setName('yellow');
-        console.log(arrButton[3].name);
-
-        arrButton[4] = this.add.image(0, 0, 'cat').setOrigin(0, 0);
-        arrButton[4].visible = false;
-        arrButton[4].setName('cat');
-        console.log(arrButton[4].name);
-
-        arrButton[5] = this.add.image(0, 0, 'dog').setOrigin(0, 0);
-        arrButton[5].visible = false;
-        arrButton[5].setName('dog');
-        console.log(arrButton[5].name);
-
-        arrButton[6] = this.add.image(0, 0, 'dragon').setOrigin(0, 0);
-        arrButton[6].visible = false;
-        arrButton[6].setName('dragon');
-        console.log(arrButton[6].name);
-
-        arrButton[7] = this.add.image(0, 0, 'tiger').setOrigin(0, 0);
-        arrButton[7].visible = false;
-        arrButton[7].setName('tiger');
-        console.log(arrButton[7].name);
+        var button = null;
+        for(var i = 0; i < 8; i++){
+            switch(i){
+                case 0: button = 'black'; break;
+                case 1: button = 'green'; break;
+                case 2: button = 'purple'; break;
+                case 3: button = 'yellow'; break;
+                case 4: button = 'cat'; break;
+                case 5: button = 'dog'; break;
+                case 6: button = 'dragon'; break;
+                case 7: button = 'tiger'; break;
+            }
+            arrButton[i] = this.add.image(0, 0, button).setOrigin(0, 0);
+            arrButton[i].visible = false;
+            arrButton[i].setName(button);
+            console.log(arrButton[i].name);
+        }
     }
 
     // tao cac day ngau nhien
-    ramdonButton() {
-        
+    ramdonButton() {  
         while(dataArrButtonAnimal.length < 3){
-
             // day con vat
             let index = Phaser.Math.Between(4,7);
             let dataAnimal = arrButton[index];
@@ -195,7 +228,6 @@ class loadGame extends  Phaser.Scene {
         } 
         
         while(dataArrButtonColor.length < 3){
-
               // day mau
               let index = Phaser.Math.Between(0,3)
               let dataColor = arrButton[index];
@@ -221,10 +253,7 @@ class loadGame extends  Phaser.Scene {
             dataArrButtonColor[i].visible = true;
             dataArrButtonColor[i].x = constButtonColorX + i * 160;
             dataArrButtonColor[i].y = constButtonColorY;
-
             this.input.setDraggable(dataArrButtonColor[i]);
-            
-            console.log(dataArrButtonColor[i].x, dataArrButtonColor[i].y);
         }
     }
 
@@ -238,20 +267,15 @@ class loadGame extends  Phaser.Scene {
             dataArrButtonAnimal[i].visible = true;
             dataArrButtonAnimal[i].x = constButtonAnimalX + i * 160;
             dataArrButtonAnimal[i].y = constButtonAnimalY;
-
             this.input.setDraggable(dataArrButtonAnimal[i]);
-        
-            console.log(dataArrButtonAnimal[i].x, dataArrButtonAnimal[i].y);
         }
     }
 
     // khoi tao cau hoi
     createQuestion() {
         question = this.add.text(400, 400, "This is a                        .", {
-
             font: "50px Arial", 
             fill: "black"
-
         }).setOrigin(0, 0);
 
         this.tutorial = this.sound.add('tutorial');
@@ -270,9 +294,7 @@ class loadGame extends  Phaser.Scene {
 
         // bat dau keo
         this.input.on('dragstart', function (pointer, gameObject) {
-
             this.children.bringToTop(gameObject);
-
         }, this);
 
         this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
@@ -283,12 +305,10 @@ class loadGame extends  Phaser.Scene {
             // xet vung tha 
             var name = gameObject.name;
             if(name === 'black' || name === 'green' || name == 'yellow' || name === 'purple'){
-                zone1.input.dropZone = true;
-                
+                zone1.input.dropZone = true;     
             } else {
                 if(name === 'cat' || name == 'dog' || name === 'dragon' || name === 'tiger'){
-                    zone2.input.dropZone = true;
-                    
+                    zone2.input.dropZone = true;    
                 }
             }
         });
@@ -309,7 +329,6 @@ class loadGame extends  Phaser.Scene {
                 if(dropZone.name === 'animal'){
                     nameAnimal = name;
                     console.log(nameAnimal);
-
                 }
             }
             if(nameAnimal != null && nameColor != null){
@@ -349,12 +368,9 @@ class loadGame extends  Phaser.Scene {
             loop: true,
             delay: 0
         };
-        
         tingAudio = this.sound.add('tingAudio');
-
         backgroundAudio = this.sound.add('backgroundAudio');
         backgroundAudio.play(config);
-
         // bat am
         mute = this.add.image(110, 80, 'mute').setOrigin(0.5, 0.5);
         mute.name = null;
@@ -406,7 +422,8 @@ class loadGame extends  Phaser.Scene {
     
         next.setInteractive().on('pointerup', function(){
             checkNext = 1;
-            numberState++;
+            process++;
+            next.destroy();
         });
     
         next.on('pointerover', function(){
@@ -417,11 +434,6 @@ class loadGame extends  Phaser.Scene {
             next.setScale(1);
         });    
     }
-    // chuyen man choi
-    nextState() {
-        this.destroyObject();
-        this.mainState();
-    }
     // huy cac doi tuong
     destroyObject() {
         zone1.destroy();
@@ -429,7 +441,7 @@ class loadGame extends  Phaser.Scene {
         question.destroy();
         dotmark.destroy();
         object.destroy();
-        next.destroy();
+        // next.destroy();
         nameColor = null;
         nameAnimal = null;
        
@@ -445,56 +457,9 @@ class loadGame extends  Phaser.Scene {
         dataArrButtonAnimal = [];
         arrButton = [];
         
-    }
-    // ket thuc game
-    endState() {
-        this.destroyObject();
-        backgroundAudio.destroy();
-        mute.destroy();
-        unmute.destroy();
-        sound = this.sound.add('clapSound');
-        sound.play(audioConfig);
-        again = this.add.image(700, 500, 'playAgain').setOrigin(0.5, 0.5);
-        again.name = null;
-        again.setInteractive().on('pointerdown', function() {
-            playAgain = 1;
-        });
-
-        again.on('pointerover', function() {
-            again.setScale(1.25);
-        });
-
-        again.on('pointerout', function() {
-            again.setScale(1);
-        });
-
-        this.congra = this.add.image(350, 50, 'congratulation').setOrigin(0, 0);
-    }
-    // bat dau mot game moi
-    newGame() {
-        dataArrButtonColor = [];
-        dataArrButtonAnimal = [];
-        arrButton = [];
-        check = 0;
-        checkNext = 0;
-        playAgain = 0;
-        numberState = 0;
-        nameAudio = null;
-        audioConfig = {
-            mute: false,
-            volume: 2,
-            rate: 1,
-            detune: 0,
-            seek: 0,
-            loop: false,
-            delay: 0
-        };
-        this.scene.start('loadGame');
-    }
+    }    
 
     update() {
-        
-
         if(check){
             check = 0;
             timer = this.time.delayedCall(700, function(){
@@ -513,7 +478,7 @@ class loadGame extends  Phaser.Scene {
             audio = this.sound.add(nameColor + nameAnimal + 'Audio');
             audio.play(audioConfig);
             timer = this.time.delayedCall(2000, function(){
-                if(numberState < 7){
+                if(process <= numberState){
                     this.nextState();
                 } else {
                     this.endState();
@@ -528,6 +493,5 @@ class loadGame extends  Phaser.Scene {
                 this.newGame();
             }, [], this);
         }
-
     }
 }
